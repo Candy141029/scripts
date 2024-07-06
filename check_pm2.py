@@ -13,7 +13,7 @@ def self_check():
     current_pid = os.getpid()
 
     # 检查是否有其他相同脚本在运行
-    if len(running_scripts) > 1:
+    if len(running_scripts) > 0:
         for script in running_scripts:
             if script and script.split()[0] != current_pid:
                 ##print("进程已存在")
