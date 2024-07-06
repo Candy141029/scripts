@@ -1,5 +1,23 @@
 import subprocess
 import datetime
+import time
+import sys
+import os
+
+def self_check():
+    script_name = sys.argv[0]
+    result = subprocess.run(['pgrep', '-fl', script_name], stdout=subprocess.PIPE)
+    running_scripts = result.stdout.decode('utf-8').strip().split('\n')
+
+    # 过滤掉当前进程
+    current_pid = os.getpid()
+
+    # 检查是否有其他相同脚本在运行
+    if len(running_scripts) > 1:
+        for script in running_scripts:
+            if script and script.split()[0] != current_pid:
+                ##print("进程已存在")
+                sys.exit()
 
 def check_pm2_process():
     # 获取当前用户名
@@ -29,4 +47,5 @@ def check_pm2_process():
         subprocess.run([pm2, 'resurrect'])
 
 if __name__ == "__main__":
+    self_check()
     check_pm2_process()
