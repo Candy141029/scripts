@@ -31,16 +31,15 @@ def check_pm2_process():
     processes = result.stdout.decode('utf-8')
 
     if 'PM2' in processes:
-        # # 如果存在 PM2 进程，检查process list是否与saved list一致
-        # _result = subprocess.run([pm2, 'list'], stdout=subprocess.PIPE)
-        # _processes = _result.stdout.decode('utf-8')
-        # if 'Current process list is not synchronized with saved list' in _processes:
-        #     current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        #     log_message = f"{current_time} - pm2 Current process list is not synchronized with saved list"
-        #     with open(logfile_path, 'a') as logfile:
-        #         logfile.write(log_message + '\n')
-        #     subprocess.run([pm2, 'resurrect'])
-        pass
+        # 如果存在 PM2 进程，检查process list是否与saved list一致
+        _result = subprocess.run([pm2, 'list'], stdout=subprocess.PIPE)
+        _processes = _result.stdout.decode('utf-8')
+        if 'Current process list is not synchronized with saved list' in _processes:
+            current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            log_message = f"{current_time} - pm2 Current process list is not synchronized with saved list"
+            with open(logfile_path, 'a') as logfile:
+                logfile.write(log_message + '\n')
+            subprocess.run([pm2, 'resurrect'])
     else:
         # 如果不存在 PM2 进程，输出日志并执行命令
         current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -52,7 +51,6 @@ def check_pm2_process():
 
         # 执行命令
         subprocess.run(['pkill', '-kill', '-u', username])
-        subprocess.run([pm2, 'list'])
         subprocess.run([pm2, 'resurrect'])
 
 if __name__ == "__main__":
