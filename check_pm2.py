@@ -35,6 +35,7 @@ def check_pm2_process():
         _result = subprocess.run(['pm2', 'list'], stdout=subprocess.PIPE)
         _processes = _result.stdout.decode('utf-8')
         if 'Current process list is not synchronized with saved list' in _processes:
+            current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             log_message = f"{current_time} - pm2 Current process list is not synchronized with saved list"
             with open(logfile_path, 'a') as logfile:
                 logfile.write(log_message + '\n')
