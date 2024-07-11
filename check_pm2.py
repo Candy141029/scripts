@@ -31,8 +31,11 @@ def check_pm2_process():
     processes = result.stdout.decode('utf-8')
 
     if 'PM2' in processes:
-        # 如果存在 PM2 进程，什么也不做
-        pass
+        # 如果存在 PM2 进程，检查process list是否与saved list一致
+        _result = subprocess.run(['pm2', 'list'], stdout=subprocess.PIPE)
+        _processes = result.stdout.decode('utf-8')
+        if 'Current process list is not synchronized with saved list' in _processes:
+            subprocess.run([pm2, 'resurrect'])
     else:
         # 如果不存在 PM2 进程，输出日志并执行命令
         current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
