@@ -3,7 +3,7 @@
 
 # 使用方法
 1.获取维护脚本：
-wget https://raw.githubusercontent.com/Candy141029/scripts/main/check_pm2.py
+wget https://raw.githubusercontent.com/Candy141029/scripts/main/check_pm2.py  
 2.设置crontab每10分钟执行：python check_pm2.py >> /dev/null 2>&1
 ![image](https://github.com/Candy141029/scripts/assets/175073750/321f4cec-52e4-4e53-9d6f-2cb493ac4433)
 
