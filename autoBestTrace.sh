@@ -3,10 +3,10 @@
 # apt -y install unzip
 
 # install besttrace
-if [ ! -f "besttrace2021" ]; then
-    wget https://github.com/zq/shell/raw/master/besttrace2021
-    # unzip besttrace4linux.zip
-    chmod +x besttrace2021
+if [ ! -f "besttrace" ]; then
+    wget https://cdn.ipip.net/17mon/besttrace4linux.zip
+    unzip besttrace4linux.zip
+    chmod +x besttrace
 fi
 
 ## start to use besttrace
@@ -26,6 +26,6 @@ echo '2c54fff516c0f472177dd6f1115b9bc1339c424a' > besttrace.lic
 for i in {0..12}
 do
 	echo ${ip_addr[$i]}
-	./besttrace2021 -q 1 ${ip_list[$i]}
+	./besttrace -q 1 ${ip_list[$i]}
 	next
 done
